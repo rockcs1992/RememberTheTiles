@@ -32,25 +32,27 @@ export default {
   },
   methods: {
     handleClick () {
-      const { initialized, alreadyCounted, remainingBoxCount, levelCount } = this
-      if (initialized) {
-        this.clicked = true
-        if (!alreadyCounted) {
-          if (remainingBoxCount !== 1) {
-            this.$store.dispatch('addScore', 10)
-          } else if (remainingBoxCount === 1) {
-            this.$store.dispatch('addScore', 5 * Math.pow(2, levelCount - 1) + 10)
+      const { initialized, initializing, alreadyCounted, remainingBoxCount, levelCount } = this
+      if (!initializing) {
+        if (initialized) {
+          this.clicked = true
+          if (!alreadyCounted) {
+            if (remainingBoxCount !== 1) {
+              this.$store.dispatch('addScore', 10)
+            } else if (remainingBoxCount === 1) {
+              this.$store.dispatch('addScore', 5 * Math.pow(2, levelCount - 1) + 10)
+            }
+            this.alreadyCounted = true
+            this.$store.dispatch('subtractRemainingBoxByOne')
           }
-          this.alreadyCounted = true
-          this.$store.dispatch('subtractRemainingBoxByOne')
+        } else {
+          this.clicked = false
+          this.alreadyCounted = false
+          this.notMatch = true
+          this.$store.dispatch('showError')
+          this.$store.dispatch('showActiveColor')
+          this.$store.dispatch('showModal')
         }
-      } else {
-        this.clicked = false
-        this.alreadyCounted = false
-        this.notMatch = true
-        this.$store.dispatch('showError')
-        this.$store.dispatch('showActiveColor')
-        this.$store.dispatch('showModal')
       }
     },
     resetTile () {
