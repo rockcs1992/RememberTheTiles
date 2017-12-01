@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <custom-modal />
     <div v-if="gameState === 1">
       <main-menu />
     </div>
@@ -14,13 +15,15 @@ import { mapState } from 'vuex'
 import GameStage from './components/GameStage'
 import MainMenu from './components/MainMenu'
 import ScoreBoard from './components/ScoreBoard'
+import CustomModal from './components/CustomModal'
 
 export default {
   name: 'app',
   components: {
     GameStage,
     MainMenu,
-    ScoreBoard
+    ScoreBoard,
+    CustomModal
   },
   computed: mapState(['gameState'])
 }

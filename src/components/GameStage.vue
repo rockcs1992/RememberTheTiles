@@ -19,13 +19,14 @@ export default {
   created () {
     setTimeout(() => {
       this.$store.dispatch('hideStagePattern')
+      this.$store.dispatch('endStageInitialization')
     }, 1500)
   },
   computed: mapState(['remainingBoxCount']),
   watch: {
     remainingBoxCount (val) {
       if (!val) {
-        this.$store.dispatch('toNextStage')
+        this.$store.dispatch('showModal')
       }
     }
   }

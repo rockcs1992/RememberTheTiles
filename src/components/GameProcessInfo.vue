@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <game-process-info-item label="LEVEL" :value='levelCount' />
+    <game-process-info-item label="STAGE" :value='stageCount' />
     <game-process-info-item label="TILES" :value='tilesCount' />
     <game-process-info-item label="SCORE" :value='score' />
   </div>
@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     ...mapState({
-      levelCount: state => state.stageCount,
+      stageCount: state => state.stageCount,
       tilesCount: state => state.boxCount,
       score: state => state.score
     })

@@ -1,5 +1,8 @@
 <template lang="html">
-  <div :class="{box: true, active: isActive, incorrect: notMatch}" @click="handleClick">
+  <div
+    :class="{box: true, active: isActive, incorrect: notMatch}"
+    @click="handleClick"
+  >
   </div>
 </template>
 
@@ -8,7 +11,7 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'TileUnit',
-  props: ['id', 'initialized'],
+  props: ['initialized'],
   data () {
     return {
       clicked: false,
@@ -19,38 +22,38 @@ export default {
   computed: {
     ...mapState({
       initializing: state => state.initializing,
+      showActiveColor: state => state.showActiveColor,
       remainingBoxCount: state => state.remainingBoxCount,
-      stageCount: state => state.stageCount,
+      levelCount: state => state.levelCount,
       isActive (state) {
-        return state.initializing ? this.initialized : this.clicked
+        return state.initializing || state.showActiveColor ? this.initialized : this.clicked
       }
     })
   },
   methods: {
     handleClick () {
-      const { initialized, alreadyCounted, remainingBoxCount, stageCount } = this
+      const { initialized, alreadyCounted, remainingBoxCount, levelCount } = this
       if (initialized) {
         this.clicked = true
         if (!alreadyCounted) {
           if (remainingBoxCount !== 1) {
             this.$store.dispatch('addScore', 10)
           } else if (remainingBoxCount === 1) {
-            this.$store.dispatch('addScore', 5 * Math.pow(2, stageCount - 1) + 10)
+            this.$store.dispatch('addScore', 5 * Math.pow(2, levelCount - 1) + 10)
           }
-          this.$store.dispatch('subtractRemainingBoxByOne')
           this.alreadyCounted = true
+          this.$store.dispatch('subtractRemainingBoxByOne')
         }
       } else {
         this.clicked = false
         this.alreadyCounted = false
         this.notMatch = true
-        this.$store.dispatch('showStagePattern')
-        this.$store.dispatch('toMenuView')
-        this.$store.dispatch('restartGame')
-        alert('Game Over')
+        this.$store.dispatch('showError')
+        this.$store.dispatch('showActiveColor')
+        this.$store.dispatch('showModal')
       }
     },
-    resetBox () {
+    resetTile () {
       this.clicked = false
       this.alreadyCounted = false
       this.notMatch = false
@@ -59,7 +62,7 @@ export default {
   watch: {
     initializing (val) {
       if (val) {
-        this.resetBox()
+        this.resetTile()
       }
     }
   }
