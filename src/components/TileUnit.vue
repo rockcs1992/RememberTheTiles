@@ -31,27 +31,37 @@ export default {
     })
   },
   methods: {
+    handleCorrectTileClick () {
+      const { alreadyCounted, remainingBoxCount, levelCount } = this
+      this.clicked = true
+      if (!alreadyCounted) {
+        if (remainingBoxCount !== 1) {
+          this.$store.dispatch('addScore', 10)
+        } else if (remainingBoxCount === 1) {
+          this.$store.dispatch('addScore', 5 * Math.pow(2, levelCount - 1) + 10)
+        }
+        this.alreadyCounted = true
+        this.$store.dispatch('subtractRemainingBoxByOne')
+        if (!this.remainingBoxCount) {
+          this.$store.dispatch('showModal')
+        }
+      }
+    },
+    handleIncorrectTileClick () {
+      this.clicked = false
+      this.alreadyCounted = false
+      this.notMatch = true
+      this.$store.dispatch('showError')
+      this.$store.dispatch('showActiveColor')
+      this.$store.dispatch('showModal')
+    },
     handleClick () {
-      const { initialized, initializing, alreadyCounted, remainingBoxCount, levelCount } = this
+      const { initialized, initializing } = this
       if (!initializing) {
         if (initialized) {
-          this.clicked = true
-          if (!alreadyCounted) {
-            if (remainingBoxCount !== 1) {
-              this.$store.dispatch('addScore', 10)
-            } else if (remainingBoxCount === 1) {
-              this.$store.dispatch('addScore', 5 * Math.pow(2, levelCount - 1) + 10)
-            }
-            this.alreadyCounted = true
-            this.$store.dispatch('subtractRemainingBoxByOne')
-          }
+          this.handleCorrectTileClick()
         } else {
-          this.clicked = false
-          this.alreadyCounted = false
-          this.notMatch = true
-          this.$store.dispatch('showError')
-          this.$store.dispatch('showActiveColor')
-          this.$store.dispatch('showModal')
+          this.handleIncorrectTileClick()
         }
       }
     },

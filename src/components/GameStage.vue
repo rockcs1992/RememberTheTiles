@@ -8,7 +8,6 @@
 <script>
 import TileMatrix from './TileMatrix'
 import GameProcessInfo from './GameProcessInfo'
-import { mapState } from 'vuex'
 
 export default {
   name: 'GameStage',
@@ -21,14 +20,6 @@ export default {
       this.$store.dispatch('hideStagePattern')
       this.$store.dispatch('endStageInitialization')
     }, 1500)
-  },
-  computed: mapState(['remainingBoxCount']),
-  watch: {
-    remainingBoxCount (val) {
-      if (!val) {
-        this.$store.dispatch('showModal')
-      }
-    }
   }
 }
 </script>
