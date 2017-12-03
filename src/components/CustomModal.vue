@@ -1,12 +1,12 @@
 <template lang="html">
-  <transition name="modal" v-if="showModal">
+  <transition name="modal" v-if="modalType">
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-body">
-            <custom-modal-body :error="error" :currentLevel="levelCount" :currentTiles="boxCount" />
+            <stage-bonus-modal v-if="modalType === 'stageBonus'" :error="error" :currentLevel="levelCount" :currentTiles="boxCount" />
+            <game-over-modal v-if="modalType === 'gameOver'" />
           </div>
-          <button class="modal-default-button" @click="closeModal">OK</button>
           </div>
         </div>
       </div>
@@ -16,21 +16,17 @@
 
 <script>
 import { mapState } from 'vuex'
-import CustomModalBody from './CustomModalBody'
+import StageBonusModal from './StageBonusModal'
+import GameOverModal from './GameOverModal'
 
 export default {
   name: 'CustomModal',
   components: {
-    CustomModalBody
+    StageBonusModal,
+    GameOverModal
   },
   computed: {
-    ...mapState(['showModal', 'error', 'levelCount', 'boxCount'])
-  },
-  methods: {
-    closeModal () {
-      this.$store.dispatch('hideModal')
-      this.$store.dispatch('toNextStage', this.error)
-    }
+    ...mapState(['modalType', 'error', 'levelCount', 'boxCount'])
   }
 }
 </script>

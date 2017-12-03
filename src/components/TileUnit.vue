@@ -43,7 +43,7 @@ export default {
         this.alreadyCounted = true
         this.$store.dispatch('subtractRemainingBoxByOne')
         if (!this.remainingBoxCount) {
-          this.$store.dispatch('showModal')
+          this.$store.dispatch('showModal', 'stageBonus')
         }
       }
     },
@@ -53,7 +53,7 @@ export default {
       this.notMatch = true
       this.$store.dispatch('showError')
       this.$store.dispatch('showActiveColor')
-      this.$store.dispatch('showModal')
+      this.$store.dispatch('showModal', 'stageBonus')
     },
     handleClick () {
       const { initialized, initializing } = this
@@ -90,7 +90,7 @@ export default {
   }
 
   .active {
-    background-color: red;
+    background-color: #00c2ff;
   }
 
   .incorrect {

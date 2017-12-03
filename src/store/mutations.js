@@ -8,14 +8,15 @@ import {
   SHOW_STAGE_PATTERN,
   HIDE_STAGE_PATTERN,
   ADD_SCORE,
-  SHOW_MODAL,
-  HIDE_MODAL,
+  SET_MODAL_TYPE,
   SHOW_ACTIVE_COLOR,
   HIDE_ACTIVE_COLOR,
   START_STAGE_INITIALIZATION,
   END_STAGE_INITIALIZATION,
+  ADD_SCORE_RECORD,
   TO_GAME_VIEW,
-  TO_MENU_VIEW
+  TO_MENU_VIEW,
+  TO_SCOREBOARD_VIEW
 } from './mutation-types'
 
 const mutations = {
@@ -60,6 +61,7 @@ const mutations = {
     }
   },
   [SUBTRACT_LEVEL_BY_ONE] (state) {
+    if (state.boxCount === 3) return
     state.levelCount--
     state.boxCount--
     state.remainingBoxCount = state.boxCount
@@ -72,11 +74,8 @@ const mutations = {
   [ADD_SCORE] (state, scoreToAdd) {
     state.score += scoreToAdd
   },
-  [SHOW_MODAL] (state) {
-    state.showModal = true
-  },
-  [HIDE_MODAL] (state) {
-    state.showModal = false
+  [SET_MODAL_TYPE] (state, modalType) {
+    state.modalType = modalType
   },
   [SHOW_ACTIVE_COLOR] (state) {
     state.showActiveColor = true
@@ -87,11 +86,17 @@ const mutations = {
   [TOGGLE_ERROR] (state, errorState) {
     state.error = errorState
   },
+  [ADD_SCORE_RECORD] (state, record) {
+    state.scoreRecord.push(record)
+  },
   [TO_GAME_VIEW] (state) {
     state.gameState = 2
   },
   [TO_MENU_VIEW] (state) {
     state.gameState = 1
+  },
+  [TO_SCOREBOARD_VIEW] (state) {
+    state.gameState = 3
   }
 }
 

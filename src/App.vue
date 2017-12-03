@@ -1,11 +1,15 @@
 <template>
   <div id="app">
+    <h1>Remember The Tiles!</h1>
     <custom-modal />
     <div v-if="gameState === 1">
       <main-menu />
     </div>
-    <div v-else>
+    <div v-if="gameState === 2">
       <game-stage />
+    </div>
+    <div v-if="gameState === 3">
+      <score-board />
     </div>
   </div>
 </template>

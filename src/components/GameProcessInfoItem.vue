@@ -1,7 +1,7 @@
 <template lang="html">
-  <span>
+  <span class="game-process-info">
     <span>{{label}}</span>
-    <span>{{value}}</span>
+    <span class="info-item">{{value}}</span>
   </span>
 </template>
 
@@ -13,4 +13,12 @@ export default {
 </script>
 
 <style lang="css">
+.game-process-info {
+  margin: 0 5px;
+}
+
+.info-item {
+  border: 1px solid black;
+  padding: 2px;
+}
 </style>

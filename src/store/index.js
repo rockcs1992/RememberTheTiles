@@ -6,7 +6,7 @@ import getters from './getters'
 
 Vue.use(Vuex)
 
-const state = {
+const gameState = {
   stageCount: 1,
   levelCount: 1,
   boxCount: 3,
@@ -16,13 +16,18 @@ const state = {
   matrixRow: 3,
   matrixCol: 3,
   score: 0,
-  gameState: 1,
-  showModal: false,
+  scoreRecord: [],
+  modalType: null,
   error: false
 }
 
+export const initialState = {
+  ...gameState,
+  gameState: 1
+}
+
 export default new Vuex.Store({
-  state,
+  state: initialState,
   getters,
   mutations,
   actions

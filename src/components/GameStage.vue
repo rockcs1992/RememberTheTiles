@@ -16,6 +16,7 @@ export default {
     GameProcessInfo
   },
   created () {
+    this.$store.dispatch('restartGame')
     setTimeout(() => {
       this.$store.dispatch('hideStagePattern')
       this.$store.dispatch('endStageInitialization')

@@ -1,5 +1,5 @@
 <template lang="html">
-  <table>
+  <table class="tile-matrix">
     <tr v-for="m in row">
       <td v-for="n in col">
         <tile-unit :initialized="isBoxInitialized(m, n)"/>
@@ -35,4 +35,8 @@ export default {
 </script>
 
 <style lang="css">
+.tile-matrix {
+  margin: auto;
+  margin-top: 30px;
+}
 </style>

@@ -1,9 +1,9 @@
 <template lang="html">
   <tr>
-    <td>{{index}}</td>
-    <td>{{record.score}}</td>
-    <td>{{record.maxLevel}}</td>
-    <td>{{record.date}}</td>
+    <td class="table-cell-content">{{index}}</td>
+    <td class="table-cell-content">{{record.score}}</td>
+    <td class="table-cell-content">{{record.maxLevel}}</td>
+    <td class="table-cell-content">{{record.date}}</td>
   </tr>
 </template>
 
@@ -15,4 +15,7 @@ export default {
 </script>
 
 <style lang="css">
+.table-cell-content {
+  font-size: 1.2rem;
+}
 </style>

@@ -8,12 +8,13 @@ import {
   HIDE_STAGE_PATTERN,
   TO_GAME_VIEW,
   TO_MENU_VIEW,
+  TO_SCOREBOARD_VIEW,
   SHOW_STAGE_PATTERN,
   ADD_SCORE,
-  SHOW_MODAL,
-  HIDE_MODAL,
+  SET_MODAL_TYPE,
   SHOW_ACTIVE_COLOR,
   HIDE_ACTIVE_COLOR,
+  ADD_SCORE_RECORD,
   START_STAGE_INITIALIZATION,
   END_STAGE_INITIALIZATION
 } from './mutation-types'
@@ -26,12 +27,6 @@ const actions = {
       commit(ADD_LEVEL_BY_ONE)
     }
     commit(ADD_STAGE_BY_ONE)
-    commit(SHOW_STAGE_PATTERN)
-    commit(START_STAGE_INITIALIZATION)
-    setTimeout(() => {
-      commit(HIDE_STAGE_PATTERN)
-      commit(END_STAGE_INITIALIZATION)
-    }, 1500)
   },
   subtractRemainingBoxByOne ({ commit }) {
     commit(SUBTRACT_REMAINING_BOX_BY_ONE)
@@ -48,11 +43,11 @@ const actions = {
   addScore ({ commit }, scoreToAdd) {
     commit(ADD_SCORE, scoreToAdd)
   },
-  showModal ({ commit }) {
-    commit(SHOW_MODAL)
+  showModal ({ commit }, modalType) {
+    commit(SET_MODAL_TYPE, modalType)
   },
   hideModal ({ commit }) {
-    commit(HIDE_MODAL)
+    commit(SET_MODAL_TYPE, null)
   },
   showError ({ commit }) {
     commit(TOGGLE_ERROR, true)
@@ -68,15 +63,26 @@ const actions = {
   },
   startStageInitialization ({ commit }) {
     commit(START_STAGE_INITIALIZATION)
+    commit(SHOW_STAGE_PATTERN)
+    setTimeout(() => {
+      commit(HIDE_STAGE_PATTERN)
+      commit(END_STAGE_INITIALIZATION)
+    }, 1500)
   },
   endStageInitialization ({ commit }) {
     commit(END_STAGE_INITIALIZATION)
+  },
+  addScoreRecord ({ commit }, record) {
+    commit(ADD_SCORE_RECORD, record)
   },
   toGameView ({ commit }) {
     commit(TO_GAME_VIEW)
   },
   toMenuView ({ commit }) {
     commit(TO_MENU_VIEW)
+  },
+  toScoreBoardView ({ commit }) {
+    commit(TO_SCOREBOARD_VIEW)
   }
 }
 
